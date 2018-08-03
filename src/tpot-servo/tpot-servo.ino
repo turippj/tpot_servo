@@ -60,6 +60,15 @@ void setup() {
   PortServo7 = TURIPserver.newPort(7);
   PortServo8 = TURIPserver.newPort(8);
 
+  PortServo1->writeInt16(ServoDeg[0]);
+  PortServo2->writeInt16(ServoDeg[1]);
+  PortServo3->writeInt16(ServoDeg[2]);
+  PortServo4->writeInt16(ServoDeg[3]);
+  PortServo5->writeInt16(ServoDeg[4]);
+  PortServo6->writeInt16(ServoDeg[5]);
+  PortServo7->writeInt16(ServoDeg[6]);
+  PortServo7->writeInt16(ServoDeg[7]);
+
   PortServo1->postReceiveFunc = writeServo1;
   PortServo2->postReceiveFunc = writeServo2;
   PortServo3->postReceiveFunc = writeServo3;
