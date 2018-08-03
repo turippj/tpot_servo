@@ -28,7 +28,7 @@ TURIPport* PortServo8;
 int ServoDeg[6];
 
 void setup() {
-  for(int i = 0; i < 6; i++){
+  for(int i = 0; i < 8; i++){
     ServoDeg[i] = 90;
   }
   Servo1.attach(PIN_SERVO_1);
