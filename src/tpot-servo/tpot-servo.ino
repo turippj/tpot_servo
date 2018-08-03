@@ -25,7 +25,7 @@ TURIPport* PortServo6;
 TURIPport* PortServo7;
 TURIPport* PortServo8;
 
-int ServoDeg[6];
+int ServoDeg[8];
 
 void setup() {
   for(int i = 0; i < 8; i++){
@@ -48,8 +48,7 @@ void setup() {
   Servo7.write(ServoDeg[6]);
   Servo8.write(ServoDeg[7]);
 
-
-
+  Serial.begin(9600);
   TURIPserver.begin(TURIP_MODEL, TURIP_SERIAL);
   TURIPserverSPI.begin();
   PortServo1 = TURIPserver.newPort(1);
@@ -73,6 +72,7 @@ void setup() {
 
 void loop() {
   TURIPserverSPI.update();
+  serialEvent();
 }
 
 void writeServo1(){
@@ -121,4 +121,24 @@ void writeServo8(){
   ServoDeg[7] = constrain(PortServo6->readInt16(), 0, 180);
   PortServo6->writeInt16(ServoDeg[7]);
   Servo6.write(ServoDeg[7]);
+}
+
+void serialEvent(){
+  static String strBuf;
+  while(Serial.available()){
+    char c = Serial.read();
+    if(c == 0x0a){  // 0x0a: LF
+      strBuf.trim();
+      if(strBuf.length() > 0){
+        char response[128];
+        char request[64];
+        strBuf.toCharArray(request, 64);
+        TURIPshell(request, response, 127);
+        Serial.println(response);
+      }
+      strBuf = "";
+    }else{
+      strBuf += c;
+    }
+  }
 }
