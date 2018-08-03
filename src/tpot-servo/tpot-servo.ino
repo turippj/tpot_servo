@@ -37,8 +37,9 @@ void setup() {
   Servo4.attach(PIN_SERVO_4);
   Servo5.attach(PIN_SERVO_5);
   Servo6.attach(PIN_SERVO_6);
-  Servo5.attach(PIN_SERVO_7);
-  Servo6.attach(PIN_SERVO_8);
+  Servo7.attach(PIN_SERVO_7);
+  Servo8.attach(PIN_SERVO_8);
+
   Servo1.write(ServoDeg[0]);
   Servo2.write(ServoDeg[1]);
   Servo3.write(ServoDeg[2]);
@@ -67,7 +68,7 @@ void setup() {
   PortServo5->writeInt16(ServoDeg[4]);
   PortServo6->writeInt16(ServoDeg[5]);
   PortServo7->writeInt16(ServoDeg[6]);
-  PortServo7->writeInt16(ServoDeg[7]);
+  PortServo8->writeInt16(ServoDeg[7]);
 
   PortServo1->postReceiveFunc = writeServo1;
   PortServo2->postReceiveFunc = writeServo2;
@@ -121,15 +122,15 @@ void writeServo6(){
 }
 
 void writeServo7(){
-  ServoDeg[6] = constrain(PortServo6->readInt16(), 0, 180);
-  PortServo6->writeInt16(ServoDeg[6]);
+  ServoDeg[6] = constrain(PortServo7->readInt16(), 0, 180);
+  PortServo7->writeInt16(ServoDeg[6]);
   Servo6.write(ServoDeg[6]);
 }
 
 void writeServo8(){
-  ServoDeg[7] = constrain(PortServo6->readInt16(), 0, 180);
-  PortServo6->writeInt16(ServoDeg[7]);
-  Servo6.write(ServoDeg[7]);
+  ServoDeg[7] = constrain(PortServo8->readInt16(), 0, 180);
+  PortServo8->writeInt16(ServoDeg[7]);
+  Servo8.write(ServoDeg[7]);
 }
 
 void serialEvent(){
